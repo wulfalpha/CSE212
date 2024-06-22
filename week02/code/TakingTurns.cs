@@ -12,10 +12,11 @@
         players.AddPerson("Bob", 2);
         players.AddPerson("Tim", 5);
         players.AddPerson("Sue", 3);
-        // Console.WriteLine(players);    // This can be un-commented out for debug help
+        Console.WriteLine(players);    // This can be un-commented out for debug help
         while (players.Length > 0)
             players.GetNextPerson();
         // Defect(s) Found: 
+        // it appears that it is doing the turns for each entry before moving on to the next.
 
         Console.WriteLine("---------");
 
@@ -39,7 +40,9 @@
             players.GetNextPerson();
 
         // Defect(s) Found: 
-
+        // it appears that it is doing the turns for each entry before moving on to the next.
+        // It also appears it is not getting the new person added after and respecting the queue
+        
         Console.WriteLine("---------");
 
         // Test 3
@@ -57,6 +60,8 @@
             // Console.WriteLine(players);
         }
         // Defect(s) Found: 
+        // it appears that it is doing the turns for each entry before moving on to the next.
+        // Queue was not properly implimented
 
         Console.WriteLine("---------");
 
@@ -74,7 +79,9 @@
             // Console.WriteLine(players);
         }
         // Defect(s) Found: 
-
+        // it appears that it is doing the turns for each entry before moving on to the next.
+        // Queue ending early
+        
         Console.WriteLine("---------");
 
         // Test 5
@@ -84,5 +91,6 @@
         players = new TakingTurnsQueue();
         players.GetNextPerson();
         // Defect(s) Found:
+        // No Defects! Yay!
     }
 }
