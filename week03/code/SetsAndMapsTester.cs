@@ -1,3 +1,4 @@
+using System.Text;
 using System.Text.Json;
 
 public static class SetsAndMapsTester {
@@ -111,6 +112,23 @@ public static class SetsAndMapsTester {
         // To display the pair correctly use something like:
         // Console.WriteLine($"{word} & {pair}");
         // Each pair of words should displayed on its own line.
+        HashSet<string> wordPairs = new HashSet<string>(words);
+    
+        foreach (string word in words) {
+            string reversedWord = new string(word.Reverse().ToArray());
+        
+            if (word == reversedWord) { // Skip words that are symmetric themselves
+                continue;
+            }
+        
+            if (wordPairs.Contains(reversedWord)) {
+                Console.WriteLine($"{word} & {reversedWord}");
+            
+                // After displaying the pair, we remove it from the set to avoid duplicates.
+                wordPairs.Remove(word);
+                wordPairs.Remove(reversedWord);
+            }
+        }
     }
 
     /// <summary>
@@ -132,6 +150,14 @@ public static class SetsAndMapsTester {
         foreach (var line in File.ReadLines(filename)) {
             var fields = line.Split(",");
             // Todo Problem 2 - ADD YOUR CODE HERE
+            if (degrees.ContainsKey(fields[3]))
+            {
+                degrees[fields[3]]++;
+            }
+            else
+            {
+                degrees[fields[3]] = 1;
+            }
         }
 
         return degrees;
@@ -156,9 +182,49 @@ public static class SetsAndMapsTester {
     /// #############
     /// # Problem 3 #
     /// #############
-    private static bool IsAnagram(string word1, string word2) {
-        // Todo Problem 3 - ADD YOUR CODE HERE
-        return false;
+    private static bool IsAnagram(string word1, string word2)
+    {
+        // Remove spaces and convert to lowercase
+        string cleanedWord1 = word1.Replace(" ", "").ToLower();
+        string cleanedWord2 = word2.Replace(" ", "").ToLower();
+
+        // Build SortedDictionaries
+        SortedDictionary<char, int> wt1 = BuildFrequencyTable(cleanedWord1);
+        SortedDictionary<char, int> wt2 = BuildFrequencyTable(cleanedWord2);
+
+        // Convert SortedDictionaries to strings and compare
+        return SortedDictionaryToString(wt1) == SortedDictionaryToString(wt2);
+    }
+
+    private static SortedDictionary<char, int> BuildFrequencyTable(string input)
+    {
+        SortedDictionary<char, int> result = new SortedDictionary<char, int>();
+
+        foreach (char c in input)
+        {
+            if (result.ContainsKey(c))
+            {
+                result[c]++;
+            }
+            else
+            {
+                result[c] = 1;
+            }
+        }
+
+        return result;
+    }
+
+    private static string SortedDictionaryToString(SortedDictionary<char, int> input)
+    {
+        StringBuilder sb = new StringBuilder();
+
+        foreach (KeyValuePair<char, int> pair in input)
+        {
+            sb.AppendFormat("{0}{1}", pair.Key, pair.Value);
+        }
+
+        return sb.ToString();
     }
 
     /// <summary>

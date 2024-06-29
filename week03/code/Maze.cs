@@ -30,6 +30,16 @@ public class Maze {
     /// </summary>
     public void MoveLeft() {
         // FILL IN CODE
+        if (_mazeMap.ContainsKey((_currX - 1, _currY)) && _mazeMap[(_currX - 1, _currY)][1])
+        {
+            _currX--;
+            Console.WriteLine("Moving...");
+        }
+        else
+        {
+            Console.WriteLine("Can't go that way!");
+        }
+        
     }
 
     /// <summary>
@@ -38,6 +48,15 @@ public class Maze {
     /// </summary>
     public void MoveRight() {
         // FILL IN CODE
+        if (_mazeMap.ContainsKey((_currX + 1, _currY)) && _mazeMap[(_currX + 1, _currY)][0])
+        {
+            _currX++;
+            Console.WriteLine("Moving...");
+        }
+        else
+        {
+            Console.WriteLine("Can't go that way!");
+        }
     }
 
     /// <summary>
@@ -46,6 +65,15 @@ public class Maze {
     /// </summary>
     public void MoveUp() {
         // FILL IN CODE
+        if (_mazeMap.ContainsKey((_currX, _currY - 1)) && _mazeMap[(_currX, _currY - 1)][3])
+        {
+            _currY--;
+            Console.WriteLine("Moving...");
+        }
+        else
+        {
+            Console.WriteLine("Can't go that way!");
+        }
     }
 
     /// <summary>
@@ -54,6 +82,16 @@ public class Maze {
     /// </summary>
     public void MoveDown() {
         // FILL IN CODE
+        var checkPosition = new ValueTuple<int, int>(_currX, _currY + 1);
+        if (_mazeMap.ContainsKey(checkPosition) && _mazeMap[checkPosition][3]) // correct index to 3 from 1
+        {
+            _currY++;
+            Console.WriteLine("Moving...");
+        }
+        else
+        {
+            Console.WriteLine("Can't go that way!");
+        }
     }
 
     public void ShowStatus() {
