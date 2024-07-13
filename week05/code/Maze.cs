@@ -46,7 +46,7 @@ public class Maze {
     /// the end of the maze.
     /// </summary>
     public bool IsEnd(int x, int y) {
-        return Data[y * Height + x] == 2;
+        return Data[y * Width + x] == 2;
     }
 
 
